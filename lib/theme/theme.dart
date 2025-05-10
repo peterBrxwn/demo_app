@@ -7,12 +7,18 @@ final ThemeData appTheme = ThemeData(
   textTheme: const TextTheme(
     bodyLarge: TextStyle(color: Color(0xFF374992)),
     bodyMedium: TextStyle(fontSize: 16, color: Color(0xFF374992)),
+    titleMedium: TextStyle(
+      color: Color(0xFF000000),
+      fontWeight: FontWeight.bold,
+    ),
   ),
   iconTheme: const IconThemeData(color: Color(0xFF8C8C8C)),
   colorScheme: ColorScheme.fromSwatch().copyWith(
     secondary: const Color(0xFF7883B4),
     onSecondary: Colors.white,
+    onSurface: const Color(0xFF494949),
   ),
+  dividerColor: const Color(0xFFB0B0B0),
   inputDecorationTheme: InputDecorationTheme(
     filled: true,
     fillColor: Colors.white,
