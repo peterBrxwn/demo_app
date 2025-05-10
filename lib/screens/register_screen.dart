@@ -1,7 +1,9 @@
 import 'package:demo/providers/auth_provider.dart';
+import 'package:demo/screens/home_screen.dart';
 import 'package:demo/widgets/shadowed_container.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:demo/services/firestore_service.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -15,20 +17,42 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   bool _isPasswordVisible = false;
+  final FirestoreService _firestoreService = FirestoreService();
 
   void _register(BuildContext context) async {
     final authProvider = Provider.of<AuthProvider>(context, listen: false);
 
     try {
-      await authProvider.register(
-        _emailController.text.trim(),
-        _passwordController.text.trim(),
-      );
+      final email = _emailController.text.trim();
+      if (email.isEmpty) {
+        throw Exception('Email cannot be empty.');
+      }
+
+      final password = _passwordController.text.trim();
+      if (password.length < 6) {
+        throw Exception('Password must be at least 6 characters long.');
+      }
+
+      final name = _nameController.text.trim();
+      if (name.isEmpty) {
+        throw Exception('Name cannot be empty.');
+      }
+      
+
+      await authProvider.register(email, password);
+      await _firestoreService.setDocument('users', authProvider.user!.uid, {
+        'name': name,
+        'email': email,
+      });
+
       if (context.mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text('Registration successful!')),
         );
-        Navigator.pop(context);
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (_) => const HomeScreen()),
+        );
       }
     } catch (e) {
       if (context.mounted) {
@@ -115,13 +139,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               : () => _register(context),
                       child:
                           authProvider.isLoading
-                          ? SizedBox(
-                              height: 20,
-                              width: 20,
-                              child: CircularProgressIndicator(
-                                color: Theme.of(context).colorScheme.primary,
-                              ),
-                            )
+                              ? SizedBox(
+                                height: 20,
+                                width: 20,
+                                child: CircularProgressIndicator(
+                                  color: Theme.of(context).colorScheme.primary,
+                                ),
+                              )
                               : const Text('Sign Up'),
                     ),
                   ),
