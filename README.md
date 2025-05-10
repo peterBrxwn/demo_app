@@ -36,7 +36,15 @@ A Flutter application showcasing user authentication and Firestore integration. 
 
 ## Demo Video
 
-[![Watch the Demo](assets/screenshots/demo_video_thumbnail.png)](assets/videos/demo_video.mp4)
+<table>
+  <tr>
+    <td align="center">
+      <a href="assets/videos/demo_video.mp4">
+        <img src="assets/screenshots/demo_video_thumbnail.png" alt="Watch the Demo" width="300">
+      </a>
+    </td>
+  </tr>
+</table>
 
 ---
 
