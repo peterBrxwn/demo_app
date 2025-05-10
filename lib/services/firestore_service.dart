@@ -14,4 +14,14 @@ class FirestoreService {
       throw Exception('Failed to add document: $e');
     }
   }
+
+  Stream<List<Map<String, dynamic>>> streamDocuments(String collectionPath) {
+    return _firestore
+        .collection(collectionPath)
+        .snapshots()
+        .map(
+          (querySnapshot) =>
+              querySnapshot.docs.map((doc) => doc.data()).toList(),
+        );
+  }
 }
