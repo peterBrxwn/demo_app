@@ -14,7 +14,7 @@ class ShadowedContainer extends StatelessWidget {
         boxShadow: [
           BoxShadow(
             color: Color.alphaBlend(
-              Theme.of(context).primaryColor.withAlpha(100),
+              Theme.of(context).colorScheme.primary.withAlpha(100),
               Colors.white,
             ),
             blurRadius: 8.0,

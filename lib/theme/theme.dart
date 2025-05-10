@@ -17,6 +17,7 @@ final ThemeData appTheme = ThemeData(
     secondary: const Color(0xFF7883B4),
     onSecondary: Colors.white,
     onSurface: const Color(0xFF494949),
+    primary: const Color(0xFF172182),
   ),
   dividerColor: const Color(0xFFB0B0B0),
   inputDecorationTheme: InputDecorationTheme(
@@ -56,6 +57,7 @@ final ThemeData appTheme = ThemeData(
   textButtonTheme: TextButtonThemeData(
     style: TextButton.styleFrom(
       foregroundColor: const Color(0xFF172182),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
       textStyle: const TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
     ),
   ),
