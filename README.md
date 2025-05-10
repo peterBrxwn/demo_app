@@ -15,17 +15,22 @@ A Flutter application showcasing user authentication and Firestore integration. 
 
 ## Screenshots
 
-### Register Screen
-
-![Register Screen](assets/screenshots/register_screen.png)
-
-### Login Screen
-
-![Login Screen](assets/screenshots/login_screen.png)
-
-### Home Screen
-
-![Home Screen](assets/screenshots/home_screen.png)
+<table>
+  <tr>
+    <td align="center">Register Screen</td>
+    <td>&nbsp;&nbsp;&nbsp;</td>
+    <td align="center">Login Screen</td>
+    <td>&nbsp;&nbsp;&nbsp;</td>
+    <td align="center">Home Screen</td>
+  </tr>
+  <tr>
+    <td><img src="assets/screenshots/register_screen.png" width=270></td>
+    <td>&nbsp;</td>
+    <td><img src="assets/screenshots/login_screen.png" width=270></td>
+    <td>&nbsp;</td>
+    <td><img src="assets/screenshots/home_screen.png" width=270></td>
+  </tr>
+</table>
 
 ---
 
