@@ -24,10 +24,8 @@ class AuthProvider extends ChangeNotifier {
       _isLoading = true;
       notifyListeners();
 
-      final userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: email,
-        password: password,
-      );
+      final userCredential = await FirebaseAuth.instance
+          .signInWithEmailAndPassword(email: email, password: password);
 
       _user = userCredential.user;
     } on FirebaseAuthException catch (e) {
@@ -43,10 +41,8 @@ class AuthProvider extends ChangeNotifier {
       _isLoading = true;
       notifyListeners();
 
-      final userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
-        email: email,
-        password: password,
-      );
+      final userCredential = await FirebaseAuth.instance
+          .createUserWithEmailAndPassword(email: email, password: password);
 
       _user = userCredential.user;
     } on FirebaseAuthException catch (e) {
@@ -58,8 +54,10 @@ class AuthProvider extends ChangeNotifier {
   }
 
   Future<void> logout() async {
+    _isLoading = true;
     await FirebaseAuth.instance.signOut();
     _user = null;
+    _isLoading = false;
     notifyListeners();
   }
 }
