@@ -1,4 +1,5 @@
 import 'package:demo/providers/auth_provider.dart';
+import 'package:demo/screens/home_screen.dart';
 import 'package:demo/screens/register_screen.dart';
 import 'package:demo/widgets/shadowed_container.dart';
 import 'package:flutter/material.dart';
@@ -18,18 +19,34 @@ class _LoginScreenState extends State<LoginScreen> {
 
   void _login(BuildContext context) async {
     final authProvider = Provider.of<AuthProvider>(context, listen: false);
-    final scaffoldMsgr = ScaffoldMessenger.of(context);
 
     try {
-      await authProvider.login(
-        _emailController.text.trim(),
-        _passwordController.text.trim(),
-      );
-      scaffoldMsgr.showSnackBar(
-        const SnackBar(content: Text('Login successful!')),
-      );
+      final email = _emailController.text.trim();
+      if (email.isEmpty) {
+        throw Exception('Email cannot be empty.');
+      }
+
+      final password = _passwordController.text.trim();
+      if (password.isEmpty) {
+        throw Exception('Password cannot be emepty.');
+      }
+
+      await authProvider.login(email, password);
+      if (context.mounted) {
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(const SnackBar(content: Text('Login successful!')));
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (_) => const HomeScreen()),
+        );
+      }
     } catch (e) {
-      scaffoldMsgr.showSnackBar(SnackBar(content: Text(e.toString())));
+      if (context.mounted) {
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text(e.toString())));
+      }
     }
   }
 
@@ -93,15 +110,16 @@ class _LoginScreenState extends State<LoginScreen> {
                     child: ElevatedButton(
                       onPressed:
                           authProvider.isLoading ? null : () => _login(context),
-                      child: authProvider.isLoading
-                          ? SizedBox(
-                              height: 20,
-                              width: 20,
-                              child: CircularProgressIndicator(
-                                color: Theme.of(context).colorScheme.primary,
-                              ),
-                            )
-                          : const Text('Login'),
+                      child:
+                          authProvider.isLoading
+                              ? SizedBox(
+                                height: 20,
+                                width: 20,
+                                child: CircularProgressIndicator(
+                                  color: Theme.of(context).colorScheme.primary,
+                                ),
+                              )
+                              : const Text('Login'),
                     ),
                   ),
                   const SizedBox(height: 46.0),
