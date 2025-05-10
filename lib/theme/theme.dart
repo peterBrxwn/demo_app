@@ -35,10 +35,6 @@ final ThemeData appTheme = ThemeData(
       borderRadius: BorderRadius.circular(4),
       borderSide: const BorderSide(color: Colors.red),
     ),
-    contentPadding: const EdgeInsets.symmetric(
-      vertical: 16.0,
-      horizontal: 16.0,
-    ),
     isDense: true,
   ),
   elevatedButtonTheme: ElevatedButtonThemeData(
